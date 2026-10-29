@@ -1,17 +1,18 @@
-﻿id,name,task,params_b,weight_bf16_gb,weight_q8_gb,weight_q4_gb,hard_min_vram_gb,peak_vram_est_gb,runtime,grade,license,evidence,note
-minicpm-ocr,MiniCPM-OCR 1.0,OCR,1.3,2.42,1.71,1.43,,"3.0-4.4","vLLM/SGLang/llama.cpp/Ollama",B,Apache-2.0,官方文件体积,LLM 752M + 视觉投影 444M；GGUF 必须同时加载 mmproj（F16 0.90GB）；高分辨率多 tile 时显存升到 5GB+
-hunyuanocr,HunyuanOCR,OCR,1.0,2.0,1.05,0.6,,"3.0-3.8","vLLM/Transformers",A,开源(见官方),官方参数量,原生分辨率视觉编码器，长边越大视觉 token 越多
-glm-ocr,GLM-OCR,OCR,0.9,1.8,0.95,0.55,4.0,"4.0","vLLM/SGLang/Ollama/MLX",A,MIT,官方文档,官方标注运行显存 4GB；CogViT + GLM-0.5B 解码器；1.86 页/秒
-teleocr,TeleOCR,OCR,1.2,2.4,1.25,0.7,,"4.0-6.0","vLLM(async)",B,开源(见官方),官方参数量,需调 MAX_PIXELS 与 GPU_MEMORY_UTILIZATION；Segmentation 模式比 Detection 更吃显存
-firered-ocr,FireRed-OCR,OCR,2.13,4.3,2.2,1.3,,"6.0-7.2","Transformers/vLLM",C,Apache-2.0,第三方模型库,基于 Qwen3-VL-2B-Instruct；BF16 下 3070 需降分辨率或换 FP8/Q4
-oxr,OXR-1.0,OCR,1.3,3.2,1.7,1.0,24.0,"24+","专用推理栈(无 llama.cpp)",D,自定义(Apache-2.0+条款),官方 README,官方要求 24GB 起、推荐 48GB；无 Ollama/llama.cpp 路径，3070 直接排除
-qwen3-asr-0.6b,Qwen3-ASR-0.6B,ASR,0.94,1.8,0.81,0.5,,"2.1-3.9","vLLM/transcribe.cpp",A,Apache-2.0,官方 GGUF 文件体积,938M 参数；128 并发下 RTF 0.064；短上下文实测约 2.1GB
-qwen3-asr-1.7b,Qwen3-ASR-1.7B,ASR,2.3,3.9,2.08,1.2,,"4.0-6.4","vLLM/Transformers",C,Apache-2.0,官方+第三方实测,第三方标称 5.3GB；长音频 KV/激活随长度增长，8K ctx 估算 6.4GB
-glm-asr-nano,GLM-ASR-Nano-2512,ASR,1.5,3.5,1.8,1.0,,"4.5-5.9","Transformers/SGLang",B,MIT,第三方显卡库标 5.0GB,官方标 1.5B，第三方统计含编码器为 2.3B；方言+耳语优化
-cohere-transcribe,Cohere Transcribe 03-2026,ASR,2.1,4.2,2.05,1.21,,"4.6-6.0","Transformers/vLLM/GGUF(CrispASR)",B,Apache-2.0(需授权),社区 GGUF 文件体积,>35s 自动切块；需外部指定语言，无自动语种检测；无时间戳
-granite-speech-4.1-2b,Granite Speech 4.1 2B,ASR/AST,2.3,4.3,2.9,2.14,,"3.0-6.4","vLLM/Transformers/GGUF",C,Apache-2.0,IBM 官方资源页,官方：BF16 6GB / Q4_K_M 3GB；含多模态投影层，4K 上下文
-lfm3-audio-2b,LFM3-Audio-2B,ASR+TTS,2.0,4.0,2.1,1.1,,"1.0-5.3","Transformers/GGUF/MLX/ONNX/FP8/NVFP4",B,LFM Open License v1.0,官方+媒体,4-bit 约 1GB；18 语种；许可有年营收 1000 万美元上限
-voxcpm2,VoxCPM2,TTS,2.3,5.0,2.3,1.1,8.0,"7.3-8.0","voxcpm 库/Gradio/ONNX",D,Apache-2.0,第三方实测峰值,官方建议 8GB；实测短句峰值 7.3-7.9GB 已超 3070 可用显存；q8/4-bit 可降到 B
-qwen3.5-2b,Qwen3.5-2B,文本+视觉,2.27,4.0,2.2,1.28,,"2.2-5.7","vLLM/SGLang/llama.cpp/Ollama",B,Apache-2.0,GGUF 文件体积+显存站点,原生多模态 + 262K 上下文；真瓶颈是长上下文 KV（Q4 8K 约 2.2GB，BF16 8K 约 5.7GB）
-lfm3-1.7b,LFM3-1.7B,文本,1.73,3.5,1.8,1.0,,"1.0-4.3","Transformers/GGUF/MLX/ONNX/FP8/NVFP4",B,LFM Open License v1.0,官方+媒体,三混合架构 24 层(13 卷积/5 滑窗/6 全局)；4-bit 约 1GB；256K 上下文
-qwen3-vl-embedding-2b,Qwen3-VL-Embedding-2B,Embedding,2.1,4.4,2.2,1.1,,"4.5-6.2","vLLM>=0.14",B,Apache-2.0,官方 DeepWiki,2048 维；双塔，无自回归 KV 增长，batch 是主要变量
+﻿id,name,task,params_b,weight_bf16_gb,weight_q8_gb,weight_q4_gb,hard_min_vram_gb,peak_vram_est_gb,runtime,grade,license,evidence,verified,bench_s_per_page,note
+minicpm-ocr,MiniCPM-OCR 1.0,OCR,1.3,2.42,1.71,1.43,,"3.0-4.4","Ollama(实测)/vLLM/SGLang/llama.cpp",B,Apache-2.0,官方文件体积+本机实测,local,15.3,"Ollama Q4 本机跑通。五家里唯一有 H2 层级、公式质量最高。必须关 use_chart_recognition，否则折线图被编造成数据表(6 个假表/1922 字符)；md 图片是空链接但 crops 已裁出"
+minicpm-ocr-jev,MiniCPM-OCR Jev,OCR质检,2.0,4.0,,1.94,,"2.5-3.5","Ollama/llama-server",A,Apache-2.0(同系列),官方 GGUF 文件体积,in-progress,,"2B 区域级质量评分器，输入原图+候选渲染图，输出 0-1 分。跨引擎 AUROC 91.9-93.4；同图判别 0.995 vs 0.007。Ollama 后端官方支持。Windows 需自建 Pillow 文本渲染"
+hunyuanocr,HunyuanOCR,OCR,1.0,2.0,1.05,0.6,,"3.0-3.8","vLLM/Transformers",A,开源(见官方),官方参数量,not-tested,,"原生分辨率视觉编码器，长边越大视觉 token 越多"
+glm-ocr,GLM-OCR,OCR,0.9,1.8,0.95,0.55,4.0,"4.0","vLLM/SGLang/Ollama/MLX",A,MIT,官方文档,not-tested,,"官方标注运行显存 4GB；CogViT + GLM-0.5B 解码器；1.86 页/秒"
+teleocr,TeleOCR,OCR,1.2,2.83,1.5,0.8,,"4.0-6.0","Transformers(实测)/vLLM",B,开源(见官方),本机实测+官方,in-progress,,"2.83GB 权重，3070 显存<8GB 跑通。架构=Qwen2.5-VL 视觉+Qwen3 文本解码器，需 transformers>=4.57。唯一图片真落盘。坑：padding_side 必须 left，max_new_tokens 必须显式设"
+firered-ocr,FireRed-OCR,OCR,2.13,4.3,2.2,1.3,,"6.0-7.2","Transformers/vLLM",C,Apache-2.0,第三方模型库,not-tested,,"基于 Qwen3-VL-2B-Instruct；BF16 下 3070 需降分辨率或换 FP8/Q4"
+oxr,OXR-1.0,OCR,1.3,3.2,1.7,1.0,24.0,"24+(本地)","免费API(实测)/专用栈",D,自定义(Apache-2.0+条款),本机实测,cloud,10.3,"本地不可行：官方要求 Linux+24GB 起、推荐 48GB、无 llama.cpp。本次走免费 API 实测 10.3s/页、还原率 98.3% 零错字。坑：图链 307 跳 COS 临时签名仅约 16 分钟；标题全平铺无层级；式 4-6 编号退化为纯文本"
+qwen3-asr-0.6b,Qwen3-ASR-0.6B,ASR,0.94,1.8,0.81,0.5,,"2.1-3.9","vLLM/transcribe.cpp",A,Apache-2.0,官方 GGUF 文件体积,not-tested,,"938M 参数；128 并发下 RTF 0.064；短上下文实测约 2.1GB"
+qwen3-asr-1.7b,Qwen3-ASR-1.7B,ASR,2.3,3.9,2.08,1.2,,"4.0-6.4","vLLM/Transformers",C,Apache-2.0,官方+第三方实测,not-tested,,"第三方标称 5.3GB；长音频 KV/激活随长度增长，8K ctx 估算 6.4GB"
+glm-asr-nano,GLM-ASR-Nano-2512,ASR,1.5,3.5,1.8,1.0,,"4.5-5.9","Transformers/SGLang",B,MIT,第三方显卡库标 5.0GB,not-tested,,"官方标 1.5B，第三方统计含编码器为 2.3B；方言+耳语优化"
+cohere-transcribe,Cohere Transcribe 03-2026,ASR,2.1,4.2,2.05,1.21,,"4.6-6.0","Transformers/vLLM/GGUF(CrispASR)",B,Apache-2.0(需授权),社区 GGUF 文件体积,not-tested,,">35s 自动切块；需外部指定语言，无自动语种检测；无时间戳"
+granite-speech-4.1-2b,Granite Speech 4.1 2B,ASR/AST,2.3,4.3,2.9,2.14,,"3.0-6.4","vLLM/Transformers/GGUF",C,Apache-2.0,IBM 官方资源页,not-tested,,"官方：BF16 6GB / Q4_K_M 3GB；含多模态投影层，4K 上下文"
+lfm3-audio-2b,LFM3-Audio-2B,ASR+TTS,2.0,4.0,2.1,1.1,,"1.0-5.3","Transformers/GGUF/MLX/ONNX/FP8/NVFP4",B,LFM Open License v1.0,官方+媒体,not-tested,,"4-bit 约 1GB；18 语种；许可有年营收 1000 万美元上限"
+voxcpm2,VoxCPM2,TTS,2.3,5.0,2.3,1.1,8.0,"7.3-8.0","voxcpm 库/Gradio/ONNX",D,Apache-2.0,第三方实测峰值,not-tested,,"官方建议 8GB；实测短句峰值 7.3-7.9GB 已超 3070 可用显存；q8/4-bit 可降到 B"
+qwen3.5-2b,Qwen3.5-2B,文本+视觉,2.27,4.0,2.2,1.28,,"2.2-5.7","vLLM/SGLang/llama.cpp/Ollama",B,Apache-2.0,GGUF 文件体积+显存站点,not-tested,,"原生多模态 + 262K 上下文；真瓶颈是长上下文 KV（Q4 8K 约 2.2GB，BF16 8K 约 5.7GB）"
+lfm3-1.7b,LFM3-1.7B,文本,1.73,3.5,1.8,1.0,,"1.0-4.3","Transformers/GGUF/MLX/ONNX/FP8/NVFP4",B,LFM Open License v1.0,官方+媒体,not-tested,,"三混合架构 24 层(13 卷积/5 滑窗/6 全局)；4-bit 约 1GB；256K 上下文"
+qwen3-vl-embedding-2b,Qwen3-VL-Embedding-2B,Embedding,2.1,4.4,2.2,1.1,,"4.5-6.2","vLLM>=0.14",B,Apache-2.0,官方 DeepWiki,not-tested,,"2048 维；双塔，无自回归 KV 增长，batch 是主要变量"
