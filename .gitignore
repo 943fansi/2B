@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# 模型权重与缓存（几十 GB，绝不入库）
+models/
+weights/
+*.gguf
+*.safetensors
+*.pth
+*.bin
+.cache/
+hf_cache/
+
+# 本地实测产物
+bench/*/output/
+*.log
+nvidia-smi-*.csv
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
