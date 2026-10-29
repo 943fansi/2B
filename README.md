@@ -167,7 +167,7 @@ Qwen3-ASR-0.6B → Granite Speech → Cohere Transcribe → GLM-ASR → LFM3-Aud
 ## 六、复现
 
 ```bash
-git clone https://github.com/<your-name>/2B.git
+git clone https://github.com/943fansi/2B.git
 cd 2B
 python scripts/vram_estimate.py --csv data/models.csv --gpu-mem 8 --ctx 8192
 ```
